@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schmidt BarTour Admin</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Участники бар-тура</h1>
+    
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Маршрут</th>
+            <th>Фото</th>
+            <th>Действия</th>
+        </tr>
+        {% for p in participants %}
+        <tr>
+            <td>{{ p['Telegram ID'] }}</td>
+            <td>{{ p['Name'] }}</td>
+            <td>{{ p['Route'] }}</td>
+            <td>{{ p['Photos Submitted Count'] }}</td>
+            <td>
+                <form action="/send_message" method="post">
+                    <input type="hidden" name="participant_id" value="{{ p['Telegram ID'] }}">
+                    <input type="text" name="message" placeholder="Сообщение">
+                    <button type="submit">Отправить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <h2>Массовая рассылка</h2>
+    <form action="/broadcast" method="post">
+        <textarea name="message" rows="4" cols="50" placeholder="Сообщение для всех"></textarea>
+        <br>
+        <button type="submit">Разослать всем</button>
+    </form>
+</body>
+</html>

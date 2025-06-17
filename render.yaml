@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: schmidt-bartour-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn admin_panel.app:app & python -m bot.main
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        value: 7572240019:AAE7FqcATdy4yxWc9uPIFL-6NxV0fuY_AeI
+      - key: FLASK_SECRET_KEY
+        generateValue: true
